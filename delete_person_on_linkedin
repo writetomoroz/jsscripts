@@ -1,0 +1,36 @@
+// set of javascript function that allows to delete users from linkedin list
+// https://www.linkedin.com/mynetwork/invite-connect/connections/
+// just place mouse pointer on user and press 'd' key
+//
+
+window.onkeypress=function(event) {
+    if (event.key == 'd') {
+        console.log('going to delete:');
+        var person = getSelectedPerson();
+        console.log(person.children[1].children[0].children[1].innerText);
+
+        person.childNodes[5].childNodes[3].childNodes[2].click();
+        person.childNodes[5].childNodes[3].childNodes[2].childNodes[2].childNodes[1].click();
+        document.getElementsByClassName('remove-btn button-primary-medium mv2')[0].click();
+    }
+}
+
+function getSelectedPerson() {
+    var n = document.querySelector(":hover");
+    var nn;
+    while (n) {
+        nn = n;
+        n = nn.querySelector(":hover");
+    }
+    return getParent(nn);
+}
+
+function getParent(el) {
+    var deep = 10;
+    var parent = el;
+    while (deep > 0 && parent.className.indexOf('mn-person-card') == -1) {
+        deep--;
+        parent = parent.parentNode
+    }
+    return parent;
+}
